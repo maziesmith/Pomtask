@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+<EditText
+        android:id="@+id/taskname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/taskname_hint"
+        android:inputType="textCapSentences"
+        android:textSize="30sp" >
+
+        <requestFocus />
+    </EditText>
+	<RadioGroup android:id="@+id/priority"
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal">
+	    <RadioButton
+        android:id="@+id/radio_none"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prior_none"
+        android:checked="true"
+        />
+	    <RadioButton
+        android:id="@+id/radio_p1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prior_one"
+        android:checked="false"
+        />
+	    <RadioButton
+        android:id="@+id/radio_p2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prior_two"
+        android:checked="false"
+        />
+	    <RadioButton
+        android:id="@+id/radio_p3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prior_three"
+        android:checked="false"
+        />
+	    <RadioButton
+        android:id="@+id/radio_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prior_star"
+        android:checked="false"
+        />
+	</RadioGroup>
+	<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+	    <TextView android:layout_width="0dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/label_list"
+	    android:layout_weight="1"
+	    android:textSize="20sp"/>
+
+	<Spinner
+	    android:id="@+id/select_list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" 
+	    android:layout_weight="2"/>
+
+	</LinearLayout>
+</LinearLayout>
