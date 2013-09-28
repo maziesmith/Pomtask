@@ -13,4 +13,5 @@
 	<string name="prior_three">3</string>
 	<string name="prior_none">None</string>
 	<string name="label_order">Order</string>
+	<string name="label_duedate">Due Date</string>
 </resources>
