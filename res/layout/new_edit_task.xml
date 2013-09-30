@@ -61,8 +61,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        >
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="0dp"
@@ -83,29 +82,96 @@
             android:layout_weight="1"
             android:text="@string/label_order"
             android:textSize="20sp" />
+
         <Spinner
             android:id="@+id/select_order"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2" />
     </LinearLayout>
-	<LinearLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        >
-	<TextView
+        android:orientation="horizontal" >
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_duedate"
             android:textSize="20sp" />
-	<EditText 
-	    android:id="@+id/duedatep"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:inputType="date"
-	    android:focusable="false"
-	    android:ems="10"
-	    />
-	</LinearLayout>
+
+        <EditText
+            android:id="@+id/duedatep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_reminder"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/reminderp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="date" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_repeat"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/label_goal"
+            android:layout_weight="1"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/goal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:layout_weight="2" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/label_poms"
+            android:layout_weight="3"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 </LinearLayout>

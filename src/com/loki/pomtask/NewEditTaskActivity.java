@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -13,6 +14,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,28 +23,43 @@ import android.widget.TimePicker;
 
 import com.example.pomtask.R;
 
+@SuppressLint("ValidFragment")
 public class NewEditTaskActivity extends FragmentActivity {
 	private Spinner select_list;
-	private static EditText dateEdit;
+	private Spinner select_repeat;
+	private EditText duedate;
+	private EditText reminder;
 	private static String date;
-	private static String time;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_edit_task);
-		dateEdit = (EditText) findViewById(R.id.duedatep);
-        dateEdit.setOnClickListener(new View.OnClickListener() {
+		duedate = (EditText) findViewById(R.id.duedatep);
+        duedate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            	showTimePickerDialog(v);
+            	showTimePickerDialog(v,duedate);
             	showDatePickerDialog(v);
            
             }
         });
+        reminder =(EditText)findViewById(R.id.reminderp);
+        reminder.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+			 	showTimePickerDialog(v,reminder);
+            	showDatePickerDialog(v);
+           	
+			}
+		});
 		addChangeList();
-
+		addChangeRepeat();
 	}
+	
 	public void addChangeList() {
 		select_list = (Spinner) findViewById(R.id.select_list);
 		List<String> list = new ArrayList<String>();
@@ -55,7 +72,20 @@ public class NewEditTaskActivity extends FragmentActivity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_list.setAdapter(dataAdapter);
 	}
-	
+	public void addChangeRepeat() {
+		select_repeat = (Spinner) findViewById(R.id.repeat);
+		List<String> list = new ArrayList<String>();
+		list.add("None");
+		list.add("Everyday");
+		list.add("Every Week");
+		list.add("Every Month");
+		list.add("Every Year");
+		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, list);
+		dataAdapter
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		select_repeat.setAdapter(dataAdapter);
+	}
 	 
 	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 		@Override
@@ -81,7 +111,13 @@ public class NewEditTaskActivity extends FragmentActivity {
 		}
 	}
 	
+	@SuppressLint("ValidFragment")
 	public static class TimerPickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+		private EditText w;
+		public TimerPickerFragment(EditText w){
+			super();
+			this.w=w;
+		}
 		@Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 	        // Use the current time as the default values for the picker
@@ -96,11 +132,11 @@ public class NewEditTaskActivity extends FragmentActivity {
 
 	    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 	        // Do something with the time chosen by the user
-	    	dateEdit.setText(date + "-" + hourOfDay + ":"    + minute);
+	    	w.setText(date + "-" + hourOfDay + ":"    + minute);
         }
 	}
-	public void showTimePickerDialog(View v){
-		DialogFragment newFragment=new TimerPickerFragment();
+	public void showTimePickerDialog(View v,EditText w){
+		DialogFragment newFragment=new TimerPickerFragment(w);
 		newFragment.show(getSupportFragmentManager(), "timePicker");
 		
 	}
