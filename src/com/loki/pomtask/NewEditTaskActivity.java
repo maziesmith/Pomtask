@@ -76,7 +76,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		select_repeat = (Spinner) findViewById(R.id.repeat);
 		List<String> list = new ArrayList<String>();
 		list.add("None");
-		list.add("Everyday");
+		list.add("Every day");
 		list.add("Every Week");
 		list.add("Every Month");
 		list.add("Every Year");
