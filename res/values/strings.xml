@@ -21,4 +21,8 @@
 	<string name="delete_but">Delete</string>
 	<string name="ok_but">OK</string>
 	<string name="cancel_but">Cancel</string>
+	<string name="but_stat">Statistic</string>
+	<string name="but_setTime">Set a Timer</string>
+	<string name="about">About</string>
+
 </resources>

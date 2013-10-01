@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 //openSearch();
                 return true;
             case R.id.action_settings:
-                //openSettings();
+                openSettings();
                 return true;
             case R.id.content_new:
             	openNewContent();
@@ -76,6 +76,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     	Intent neweditTask = new Intent(this,NewEditTaskActivity.class);
     	startActivity(neweditTask);
     }
+    public void openSettings(){
+    	Intent neweditTask = new Intent(this,NewEditTaskActivity.class);
+    	startActivity(neweditTask);
+    }
+    
+    
 	@Override
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 		// TODO Auto-generated method stub
