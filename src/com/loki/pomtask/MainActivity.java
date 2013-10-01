@@ -77,8 +77,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     	startActivity(neweditTask);
     }
     public void openSettings(){
-    	Intent neweditTask = new Intent(this,NewEditTaskActivity.class);
-    	startActivity(neweditTask);
+    	Intent setting = new Intent(this,Setting.class);
+    	startActivity(setting);
     }
     
     

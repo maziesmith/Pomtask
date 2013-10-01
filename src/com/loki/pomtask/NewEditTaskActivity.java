@@ -14,11 +14,12 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.pomtask.R;
@@ -30,36 +31,53 @@ public class NewEditTaskActivity extends FragmentActivity {
 	private EditText duedate;
 	private EditText reminder;
 	private static String date;
-	
+	private DBAdapter myDB;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_edit_task);
+		openDB();
 		duedate = (EditText) findViewById(R.id.duedatep);
-        duedate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            	showTimePickerDialog(v,duedate);
-            	showDatePickerDialog(v);
-           
-            }
-        });
-        reminder =(EditText)findViewById(R.id.reminderp);
-        reminder.setOnClickListener(new View.OnClickListener() {
-			
+		duedate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showTimePickerDialog(v, duedate);
+				showDatePickerDialog(v);
+
+			}
+		});
+		reminder = (EditText) findViewById(R.id.reminderp);
+		reminder.setOnClickListener(new View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			 	showTimePickerDialog(v,reminder);
-            	showDatePickerDialog(v);
-           	
+				showTimePickerDialog(v, reminder);
+				showDatePickerDialog(v);
+
 			}
 		});
 		addChangeList();
 		addChangeRepeat();
 	}
-	
+
+	public void openDB() {
+		myDB = new DBAdapter(this);
+		myDB.open();
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		closeDB();
+	}
+
+	public void closeDB() {
+		myDB.close();
+	}
+
 	public void addChangeList() {
 		select_list = (Spinner) findViewById(R.id.select_list);
 		List<String> list = new ArrayList<String>();
@@ -72,6 +90,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_list.setAdapter(dataAdapter);
 	}
+
 	public void addChangeRepeat() {
 		select_repeat = (Spinner) findViewById(R.id.repeat);
 		List<String> list = new ArrayList<String>();
@@ -86,62 +105,80 @@ public class NewEditTaskActivity extends FragmentActivity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_repeat.setAdapter(dataAdapter);
 	}
-	 
-	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+
+	public void onClick_AddTask(View v) {
+
+	}
+
+	public void onClick_ClearTask(View v) {
+		TextView taskname=(TextView)findViewById(R.id.taskname);
+		RadioButton prior=(RadioButton)findViewById(R.id.priority);
+		Spinner tList = select_list;
+		//rOrder
+				
+	}
+
+	public static class DatePickerFragment extends DialogFragment implements
+			DatePickerDialog.OnDateSetListener {
 		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState){
-			//use current date as the default date in the picker
-			final Calendar c=Calendar.getInstance();
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// use current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);
-			int month=c.get(Calendar.MONTH);
-			int day=c.get(Calendar.DAY_OF_MONTH);
-			
-			//create a new instance of DatePickerDialog and return it
-			return new DatePickerDialog(getActivity(),this,year,month,day);
-			
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+
+			// create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+
 		}
 
 		@Override
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			// Do something with the date chosen by the user
-			DateFormatSymbols dfs=new DateFormatSymbols();
-			String[] months=dfs.getShortMonths();
-			date=day+"/"+months[month]+"/"+year;
-			
+			DateFormatSymbols dfs = new DateFormatSymbols();
+			String[] months = dfs.getShortMonths();
+			date = day + "/" + months[month] + "/" + year;
+
 		}
 	}
-	
+
 	@SuppressLint("ValidFragment")
-	public static class TimerPickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
+	public static class TimerPickerFragment extends DialogFragment implements
+			TimePickerDialog.OnTimeSetListener {
 		private EditText w;
-		public TimerPickerFragment(EditText w){
+
+		public TimerPickerFragment(EditText w) {
 			super();
-			this.w=w;
+			this.w = w;
 		}
+
 		@Override
-	    public Dialog onCreateDialog(Bundle savedInstanceState) {
-	        // Use the current time as the default values for the picker
-	        final Calendar c = Calendar.getInstance();
-	        int hour = c.get(Calendar.HOUR_OF_DAY);
-	        int minute = c.get(Calendar.MINUTE);
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current time as the default values for the picker
+			final Calendar c = Calendar.getInstance();
+			int hour = c.get(Calendar.HOUR_OF_DAY);
+			int minute = c.get(Calendar.MINUTE);
 
-	        // Create a new instance of TimePickerDialog and return it
-	        return new TimePickerDialog(getActivity(), this, hour, minute,
-	                DateFormat.is24HourFormat(getActivity()));
-	    }
+			// Create a new instance of TimePickerDialog and return it
+			return new TimePickerDialog(getActivity(), this, hour, minute,
+					DateFormat.is24HourFormat(getActivity()));
+		}
 
-	    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-	        // Do something with the time chosen by the user
-	    	w.setText(date + "-" + hourOfDay + ":"    + minute);
-        }
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			// Do something with the time chosen by the user
+			w.setText(date + "-" + hourOfDay + ":" + minute);
+		}
 	}
-	public void showTimePickerDialog(View v,EditText w){
-		DialogFragment newFragment=new TimerPickerFragment(w);
+
+	public void showTimePickerDialog(View v, EditText w) {
+		DialogFragment newFragment = new TimerPickerFragment(w);
 		newFragment.show(getSupportFragmentManager(), "timePicker");
-		
+
 	}
-	public void showDatePickerDialog(View v){
-		DialogFragment newFragment=new DatePickerFragment();
-		newFragment.show(getSupportFragmentManager(),"datePicker");
+
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getSupportFragmentManager(), "datePicker");
 	}
 }
