@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -115,6 +116,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		TextView taskname=(TextView)findViewById(R.id.taskname);
 		RadioGroup prior=(RadioGroup)findViewById(R.id.priority);
 		Spinner tList = select_list;
+		Spinner tRepeat=select_repeat;
 		//tOrder
 		EditText tDuedate=duedate;
 		EditText tReminder=reminder;
@@ -123,6 +125,14 @@ public class NewEditTaskActivity extends FragmentActivity {
 		taskname.setText("");
 		prior.clearCheck();
 		tList.setSelection(0);
+		tDuedate.setText("");
+		tReminder.setText("");
+		tRepeat.setSelection(0);
+		tGoal.setText("");
+		Intent goToMain = new Intent(this,MainActivity.class);
+		startActivity(goToMain);
+			
+		
 		
 	}
 

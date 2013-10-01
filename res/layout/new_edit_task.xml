@@ -204,7 +204,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel_but" />
+            android:text="@string/cancel_but" 
+            android:onClick="onClick_ClearTask"/>
 
         <Button
             android:id="@+id/ok_but"
@@ -212,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ok_but"
-            android:onClick="onClick_ClearTask" />
+            android:onClick="onClick_AddTask" />
     </LinearLayout>
 
 </LinearLayout>
