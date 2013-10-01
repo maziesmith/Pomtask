@@ -4,31 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/but_statis"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        
-        android:text="@string/but_stat" />
 
     <TextView
-        android:id="@+id/but_setTime"
-        android:layout_width="match_parent"
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-       android:text="@string/but_setTime"
-        
-        
-        />
-    <TextView 
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/about"
-        
-        />
+        android:text="@+id/label"
+        android:textSize="20px" >
+    </TextView>
+
     
     
-</LinearLayout>
+    
+
+</LinearLayout> 
