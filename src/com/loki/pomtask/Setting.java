@@ -24,26 +24,22 @@ public class Setting extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String item = (String) getListAdapter().getItem(position);
 
-		
+		if(position==0){
+			Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+			openStat();
+
+		}
+		if(position==1){
+			Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
+			openSetTime();
+
+		}
 		if(position==2){
 			Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
 			openAbout();
 
 		}
-		/*switch (position) {
-		case 0:
-			// openStat();
-
-		case 1:
-			// openSettings();
-
-		case 2:
-			Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
-			openAbout();
-			break;
-		default:
-			// return //
-		}*/
+		
 	}
 
 	public void openAbout() {
@@ -51,5 +47,17 @@ public class Setting extends ListActivity {
 		Intent about = new Intent(this, About.class);
 		startActivity(about);
 	}
+	public void openStat() {
+		
+		Intent stat = new Intent(this, Stat.class);
+		startActivity(stat);
+	}
+
+	public void openSetTime() {
+	
+	Intent settime = new Intent(this,SetTime.class);
+	startActivity(settime);
+	}
+
 
 }
