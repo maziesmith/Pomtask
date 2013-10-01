@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -112,10 +113,17 @@ public class NewEditTaskActivity extends FragmentActivity {
 
 	public void onClick_ClearTask(View v) {
 		TextView taskname=(TextView)findViewById(R.id.taskname);
-		RadioButton prior=(RadioButton)findViewById(R.id.priority);
+		RadioGroup prior=(RadioGroup)findViewById(R.id.priority);
 		Spinner tList = select_list;
-		//rOrder
-				
+		//tOrder
+		EditText tDuedate=duedate;
+		EditText tReminder=reminder;
+		EditText tGoal=(EditText)findViewById(R.id.goal);
+		
+		taskname.setText("");
+		prior.clearCheck();
+		tList.setSelection(0);
+		
 	}
 
 	public static class DatePickerFragment extends DialogFragment implements
