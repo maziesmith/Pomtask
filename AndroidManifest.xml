@@ -15,18 +15,32 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.loki.pomtask.MainActivity"
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
             android:parentActivityName="com.loki.pomtask.MainActivity" >
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.loki.pomtask.MainActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.loki.pomtask.MainActivity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <activity android:name="com.loki.pomtask.NewEditTaskActivity"></activity> 
+        <activity android:name="com.loki.pomtask.NewEditTaskActivity" >
+        </activity>
+        <activity android:name="com.loki.pomtask.Setting" >
+        </activity>
+        <activity android:name="com.loki.pomtask.Search" >
+        </activity>
+
+        <!-- setting -->
+        <activity android:name="com.loki.pomtask.Stat" >
+        </activity>
+        <activity android:name="com.loki.pomtask.SetTime" >
+        </activity>
+        <activity android:name="com.loki.pomtask.About" >
+        </activity>
     </application>
 
 </manifest>

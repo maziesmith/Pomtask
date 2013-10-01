@@ -61,7 +61,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		        // An item was selected. You can retrieve the selected item using
 		        // parent.getItemAtPosition(pos)
 				String listname=select_list.getSelectedItem().toString();
-				task.setList(listname);
+				task.setList(new String(listname));
 				//Toast.makeText(getApplicationContext(), listname, Toast.LENGTH_LONG).show();
 		    }
 
