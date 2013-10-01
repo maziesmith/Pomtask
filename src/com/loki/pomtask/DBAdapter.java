@@ -176,7 +176,7 @@ public class DBAdapter {
 
 	// Change an existing row to be equal to new data.
 	public boolean updateRow(long rowId, String taskName, String tPrior, String tList,
-			String tOrder, String tDuedate, String tReminder, String tRepeat,
+			int tOrder, String tDuedate, String tReminder, String tRepeat,
 			int tGoal) {
 		String where = KEY_ROWID + "=" + rowId;
 

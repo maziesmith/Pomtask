@@ -26,6 +26,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.pomtask.R;
 
@@ -46,9 +47,29 @@ public class NewEditTaskActivity extends FragmentActivity {
 		openDB();
 		addTaskNameListener();
 		addChangeList();
+		addChangeListListener();
 		addDuedate();
 		addReminder();
 		addChangeRepeat();
+	}
+	public void addChangeListListener() {
+		// TODO Auto-generated method stub
+		select_list=(Spinner)findViewById(R.id.select_list);
+		select_list.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, 
+		            int pos, long id) {
+		        // An item was selected. You can retrieve the selected item using
+		        // parent.getItemAtPosition(pos)
+				String listname=select_list.getSelectedItem().toString();
+				//task.setList();
+				Toast.makeText(getApplicationContext(), listname, Toast.LENGTH_LONG).show();
+		    }
+
+		    public void onNothingSelected(AdapterView<?> parent) {
+		        // Another interface callback
+		    	
+		    }
+		});
 	}
 	public void addReminder() {
 		reminder = (EditText) findViewById(R.id.reminderp);
@@ -124,17 +145,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_list.setAdapter(dataAdapter);
 		
-		select_list.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, View view, 
-		            int pos, long id) {
-		        // An item was selected. You can retrieve the selected item using
-		        // parent.getItemAtPosition(pos)
-		    }
 
-		    public void onNothingSelected(AdapterView<?> parent) {
-		        // Another interface callback
-		    }
-		});
 	}
 
 	public void addChangeRepeat() {

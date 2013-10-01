@@ -3,14 +3,14 @@ package com.loki.pomtask;
 public class Task {
 	private String taskName;
 	private String list;
-	private String order;
+	private int order;
 	private String prior;
 	private String duedate;
 	private String reminder;
 	private String repeat;
 	private int goal;
 	
-	public Task(String taskName,String prior,String list,String order,String duedate,String reminder,String repeat,int goal){
+	public Task(String taskName,String prior,String list,int order,String duedate,String reminder,String repeat,int goal){
 		this.taskName=taskName;
 		this.prior=prior;
 		this.list=list;
@@ -38,11 +38,11 @@ public class Task {
 		this.list = list;
 	}
 
-	public String getOrder() {
+	public int getOrder() {
 		return order;
 	}
 
-	public void setOrder(String order) {
+	public void setOrder(int order) {
 		this.order = order;
 	}
 
