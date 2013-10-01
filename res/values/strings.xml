@@ -24,5 +24,9 @@
 	<string name="but_stat">Statistic</string>
 	<string name="but_setTime">Set a Timer</string>
 	<string name="about">About</string>
+	<string name="today">Today</string>
+	<string name="week">Week</string>
+	<string name="month">Month</string>
+	<string name="most">Most Productive day</string>
 
 </resources>
