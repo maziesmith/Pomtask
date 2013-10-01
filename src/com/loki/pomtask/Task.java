@@ -35,7 +35,7 @@ public class Task {
 	}
 
 	public void setList(String list) {
-		this.list = list;
+		this.list = new String(list);
 	}
 
 	public int getOrder() {
