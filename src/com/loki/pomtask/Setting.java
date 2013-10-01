@@ -1,8 +1,12 @@
 package com.loki.pomtask;
 
 
+import com.example.pomtask.R;
+
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,3 +28,28 @@ public class Setting extends ListActivity {
 		    Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
 		  }
 		} 
+
+public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle presses on the action bar items
+    switch (item.getItemId()) {
+        case R.id.action_search:
+            //openSearch();
+            return true;
+        case R.id.action_settings:
+            openSettings();
+            return true;
+        case R.id.content_new:
+        	openNewContent();
+        	return true;
+        default:
+            return super.onOptionsItemSelected(item);
+    }
+}
+public void openNewContent(){
+	Intent neweditTask = new Intent(this,NewEditTaskActivity.class);
+	startActivity(neweditTask);
+}
+public void openSettings(){
+	Intent setting = new Intent(this,Setting.class);
+	startActivity(setting);
+}
