@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_search:
-                //openSearch();
+                openSearch();
                 return true;
             case R.id.action_settings:
                 openSettings();
@@ -80,7 +80,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     	Intent setting = new Intent(this,Setting.class);
     	startActivity(setting);
     }
-    
+    public void openSearch(){
+    	Intent search = new Intent(this,Search.class);
+    	startActivity(search);
+    }
     
 	@Override
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
