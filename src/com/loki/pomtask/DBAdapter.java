@@ -45,14 +45,13 @@ public class DBAdapter {
 	public static final int COL_TASKNAME = 1;
 	public static final int COL_PRIOR = 2;
 	public static final int COL_LIST = 3;
-	public static final int COL_ORDER = 4;
-	public static final int COL_DUEDATE = 5;
-	public static final int COL_REMINDER = 6;
-	public static final int COL_REPEAT = 7;
-	public static final int COL_GOAL = 8;
+	public static final int COL_DUEDATE = 4;
+	public static final int COL_REMINDER = 5;
+	public static final int COL_REPEAT = 6;
+	public static final int COL_GOAL = 7;
 
 	public static final String[] ALL_KEYS = new String[] { KEY_ROWID,
-			KEY_TASKNAME, KEY_PRIOR, KEY_LIST, KEY_ORDER, KEY_DUEDATE,
+			KEY_TASKNAME, KEY_PRIOR, KEY_LIST, KEY_DUEDATE,
 			KEY_REMINDER, KEY_REPEAT, KEY_GOAL };
 
 	// DB info: it's name, and the table we are using (just one).
@@ -80,8 +79,7 @@ public class DBAdapter {
 			// NOTE: All must be comma separated (end of line!) Last one must
 			// have NO comma!!
 			+ KEY_TASKNAME + " text not null, " + KEY_PRIOR
-			+ " text not null, " + KEY_LIST + " text not null," + KEY_ORDER
-			+ " text not null, " + KEY_DUEDATE + "datetime ,"
+			+ " text not null, " + KEY_LIST + " text not null," + KEY_DUEDATE + "datetime ,"
 			+ KEY_REMINDER + "datetime ," + KEY_REPEAT + "text not null,"
 			+ KEY_GOAL + "integer not null"
 
@@ -116,7 +114,7 @@ public class DBAdapter {
 
 	// Add a new set of values to the database.
 	public long insertRow(String taskName, String tPrior, String tList,
-			String tOrder, String tduedate, String tReminder, String tRepeat,
+			String tduedate, String tReminder, String tRepeat,
 			int tGoal) {
 		/*
 		 * CHANGE 3:
@@ -128,7 +126,6 @@ public class DBAdapter {
 		initialValues.put(KEY_TASKNAME, taskName);
 		initialValues.put(KEY_PRIOR, tPrior);
 		initialValues.put(KEY_LIST, tList);
-		initialValues.put(KEY_ORDER, tOrder);
 		initialValues.put(KEY_DUEDATE, getDateTime(tduedate));
 		initialValues.put(KEY_REMINDER, tReminder);
 		initialValues.put(KEY_REPEAT, tRepeat);
@@ -180,7 +177,7 @@ public class DBAdapter {
 
 	// Change an existing row to be equal to new data.
 	public boolean updateRow(long rowId, String taskName, String tPrior, String tList,
-			int tOrder, String tduedate, String tReminder, String tRepeat,
+			String tduedate, String tReminder, String tRepeat,
 			int tGoal) {
 		String where = KEY_ROWID + "=" + rowId;
 
@@ -194,7 +191,6 @@ public class DBAdapter {
 		newValues.put(KEY_TASKNAME, taskName);
 		newValues.put(KEY_PRIOR, tPrior);
 		newValues.put(KEY_LIST, tList);
-		newValues.put(KEY_ORDER, tOrder);
 		newValues.put(KEY_DUEDATE, getDateTime(tduedate));
 		newValues.put(KEY_REMINDER, tReminder);
 		newValues.put(KEY_REPEAT, tRepeat);
