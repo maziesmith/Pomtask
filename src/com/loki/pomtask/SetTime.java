@@ -128,7 +128,7 @@ public class SetTime extends Activity implements OnClickListener {
 		select_time.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
-					if(pos==0){  time.setStartTime(10*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
+					if(pos==0){  time.setStartTime(10*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
 					if(pos==1){ time.setStartTime(15*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
 					if(pos==2){ time.setStartTime(20*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
 					if(pos==3){ time.setStartTime(25*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
