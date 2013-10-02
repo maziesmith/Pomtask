@@ -173,42 +173,74 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int textfield_focused_holo_light=0x7f020079;
     }
     public static final class id {
-        public static final int action_search=0x7f08000b;
-        public static final int action_settings=0x7f08000c;
-        public static final int content_new=0x7f08000a;
-        public static final int pager=0x7f080000;
-        public static final int priority=0x7f080002;
-        public static final int radio_none=0x7f080003;
-        public static final int radio_p1=0x7f080004;
-        public static final int radio_p2=0x7f080005;
-        public static final int radio_p3=0x7f080006;
-        public static final int radio_star=0x7f080007;
-        public static final int select_list=0x7f080008;
-        public static final int select_order=0x7f080009;
-        public static final int taskname=0x7f080001;
+        public static final int about=0x7f080000;
+        public static final int action_search=0x7f080016;
+        public static final int action_settings=0x7f080017;
+        public static final int button=0x7f080003;
+        public static final int cancel_but=0x7f080011;
+        public static final int content_new=0x7f080015;
+        public static final int delete_but=0x7f080010;
+        public static final int duedatep=0x7f08000c;
+        public static final int goal=0x7f08000f;
+        public static final int label=0x7f080014;
+        public static final int ok_but=0x7f080012;
+        public static final int pager=0x7f080001;
+        public static final int priority=0x7f080005;
+        public static final int radio_none=0x7f080006;
+        public static final int radio_p1=0x7f080007;
+        public static final int radio_p2=0x7f080008;
+        public static final int radio_p3=0x7f080009;
+        public static final int radio_star=0x7f08000a;
+        public static final int reminderp=0x7f08000d;
+        public static final int repeat=0x7f08000e;
+        public static final int select_list=0x7f08000b;
+        public static final int settime=0x7f080013;
+        public static final int taskname=0x7f080004;
+        public static final int timer=0x7f080002;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int new_edit_task=0x7f030001;
-        public static final int tab_indicator_holo=0x7f030002;
-        public static final int task_list=0x7f030003;
+        public static final int about=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int activity_timer=0x7f030002;
+        public static final int new_edit_task=0x7f030003;
+        public static final int search=0x7f030004;
+        public static final int settime=0x7f030005;
+        public static final int setting=0x7f030006;
+        public static final int stat=0x7f030007;
+        public static final int tab_indicator_holo=0x7f030008;
+        public static final int task_list=0x7f030009;
     }
     public static final class menu {
         public static final int main=0x7f070000;
     }
     public static final class string {
+        public static final int about=0x7f050015;
         public static final int action_search=0x7f050002;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int but_setTime=0x7f050014;
+        public static final int but_stat=0x7f050013;
+        public static final int cancel_but=0x7f050012;
         public static final int content_new=0x7f050003;
+        public static final int delete_but=0x7f050010;
+        public static final int label_duedate=0x7f05000b;
+        public static final int label_goal=0x7f05000e;
         public static final int label_list=0x7f050005;
-        public static final int label_order=0x7f05000b;
+        public static final int label_poms=0x7f05000f;
+        public static final int label_reminder=0x7f05000c;
+        public static final int label_repeat=0x7f05000d;
+        public static final int label_time=0x7f05001a;
+        public static final int month=0x7f050018;
+        public static final int most=0x7f050019;
+        public static final int ok_but=0x7f050011;
         public static final int prior_none=0x7f05000a;
         public static final int prior_one=0x7f050007;
         public static final int prior_star=0x7f050006;
         public static final int prior_three=0x7f050009;
         public static final int prior_two=0x7f050008;
         public static final int taskname_hint=0x7f050004;
+        public static final int today=0x7f050016;
+        public static final int week=0x7f050017;
     }
     public static final class style {
         /** 
@@ -306,7 +338,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.pomtask:divider
+          @attr name android:divider
         */
         public static final int TabWidget_divider = 0;
         /**
@@ -318,7 +350,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.pomtask:tabLayout
+          @attr name android:tabLayout
         */
         public static final int TabWidget_tabLayout = 4;
         /**
@@ -334,7 +366,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name com.example.pomtask:tabStripEnabled
+          @attr name android:tabStripEnabled
         */
         public static final int TabWidget_tabStripEnabled = 1;
         /**
@@ -346,7 +378,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.pomtask:tabStripLeft
+          @attr name android:tabStripLeft
         */
         public static final int TabWidget_tabStripLeft = 2;
         /**
@@ -358,7 +390,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name com.example.pomtask:tabStripRight
+          @attr name android:tabStripRight
         */
         public static final int TabWidget_tabStripRight = 3;
     };

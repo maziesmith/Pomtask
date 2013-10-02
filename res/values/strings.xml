@@ -27,5 +27,6 @@
 	<string name="week">Week</string>
 	<string name="month">Month</string>
 	<string name="most">Most Productive day</string>
+	<string name="label_time">Time</string>
 
 </resources>

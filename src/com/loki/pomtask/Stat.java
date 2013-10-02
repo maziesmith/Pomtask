@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class Stat extends Activity {
-	//-----------------------manu --------------------
+	//-----------------------menu --------------------
 	public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
     	MenuInflater inflater = getMenuInflater();
@@ -47,7 +47,7 @@ public class Stat extends Activity {
     	Intent search = new Intent(this,Search.class);
     	startActivity(search);
     }
-	//----------------------- end manu --------------------
+	//----------------------- end menu --------------------
 	
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);

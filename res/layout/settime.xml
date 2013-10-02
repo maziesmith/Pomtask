@@ -3,6 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_time"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:layout_marginLeft="10dp"
+            android:id="@+id/settime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+        <TextView
+        android:layout_marginLeft="10dp"
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="10dip"
+        android:textSize="50sp" />
+
+    <Button
+        android:layout_marginLeft="10dp"
+        android:id="@+id/button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Start" />
+    
 </LinearLayout>
