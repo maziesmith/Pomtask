@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -40,53 +41,37 @@ public class NewEditTaskActivity extends FragmentActivity {
 	private static String date;
 	private DBAdapter myDB;
 	private Task task;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_edit_task);
+		task = new Task();
 		openDB();
-		addTaskNameListener();
 		addChangeList();
-		addChangeListListener();
+		addTaskNameListener();
 		addDuedate();
 		addReminder();
 		addChangeRepeat();
 	}
-	public void addChangeListListener() {
-		// TODO Auto-generated method stub
-		select_list=(Spinner)findViewById(R.id.select_list);
-		select_list.setOnItemSelectedListener(new OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, View view, 
-		            int pos, long id) {
-		        // An item was selected. You can retrieve the selected item using
-		        // parent.getItemAtPosition(pos)
-				String listname=select_list.getSelectedItem().toString();
-				task.setList("test");
-				Toast.makeText(getApplicationContext(), listname, Toast.LENGTH_LONG).show();
-		    }
 
-		    public void onNothingSelected(AdapterView<?> parent) {
-		        // Another interface callback
-		    	
-		    }
-		});
-	}
 	public void addReminder() {
 		reminder = (EditText) findViewById(R.id.reminderp);
 		reminder.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				showTimePickerDialog(v, reminder);
 				showDatePickerDialog(v);
 
 			}
 		});
-		
+
 	}
+
 	public void addDuedate() {
-		
+
 		duedate = (EditText) findViewById(R.id.duedatep);
 		duedate.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -97,26 +82,29 @@ public class NewEditTaskActivity extends FragmentActivity {
 			}
 		});
 	}
-	public void addTaskNameListener(){
-		taskName=(EditText)findViewById(R.id.taskname);
+
+	public void addTaskNameListener() {
+		taskName = (EditText) findViewById(R.id.taskname);
 		taskName.setOnEditorActionListener(new EditText.OnEditorActionListener() {
 			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-			    if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-			            actionId == EditorInfo.IME_ACTION_DONE ||
-			            event.getAction() == KeyEvent.ACTION_DOWN &&
-			            event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-			        if (!event.isShiftPressed()) {
-			           // the user is done typing. 
-			        	task.setTaskName(taskName.getText().toString());
-			           return true; // consume.
-			        }                
-			    }
-			    return false; // pass on to other listeners. 
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH
+						|| actionId == EditorInfo.IME_ACTION_DONE
+						|| event.getAction() == KeyEvent.ACTION_DOWN
+						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+					if (!event.isShiftPressed()) {
+						// the user is done typing.
+						task.setTaskName(taskName.getText().toString());
+						return true; // consume.
+					}
+				}
+				return false; // pass on to other listeners.
 			}
-			});
-		
+		});
+
 	}
+
 	public void openDB() {
 		myDB = new DBAdapter(this);
 		myDB.open();
@@ -135,7 +123,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 
 	public void addChangeList() {
 		select_list = (Spinner) findViewById(R.id.select_list);
-		List<String> list = new ArrayList<String>();
+		final List<String> list = new ArrayList<String>();
 		list.add("To Do");
 		list.add("Doing");
 		list.add("Done");
@@ -144,7 +132,18 @@ public class NewEditTaskActivity extends FragmentActivity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_list.setAdapter(dataAdapter);
-		
+
+		select_list.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				task.setList(String.valueOf(list.get(pos)));
+
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
 
 	}
 
@@ -164,20 +163,22 @@ public class NewEditTaskActivity extends FragmentActivity {
 	}
 
 	public void onClick_AddTask(View v) {
-		
-		//myDB.insertRow(taskName, tPrior, tList, tOrder, tDuedate, tReminder, tRepeat, tGoal);
+		select_list = (Spinner) findViewById(R.id.select_list);
+		task.setList(String.valueOf(select_list.getSelectedItem()));
+		Intent mainact = new Intent(this, MainActivity.class);
+		startActivity(mainact);
 	}
 
 	public void onClick_ClearTask(View v) {
-		TextView taskname=(TextView)findViewById(R.id.taskname);
-		RadioGroup prior=(RadioGroup)findViewById(R.id.priority);
+		TextView taskname = (TextView) findViewById(R.id.taskname);
+		RadioGroup prior = (RadioGroup) findViewById(R.id.priority);
 		Spinner tList = select_list;
-		Spinner tRepeat=select_repeat;
-		//tOrder
-		EditText tDuedate=duedate;
-		EditText tReminder=reminder;
-		EditText tGoal=(EditText)findViewById(R.id.goal);
-		
+		Spinner tRepeat = select_repeat;
+		// tOrder
+		EditText tDuedate = duedate;
+		EditText tReminder = reminder;
+		EditText tGoal = (EditText) findViewById(R.id.goal);
+
 		taskname.setText("");
 		prior.clearCheck();
 		tList.setSelection(0);
@@ -185,11 +186,9 @@ public class NewEditTaskActivity extends FragmentActivity {
 		tReminder.setText("");
 		tRepeat.setSelection(0);
 		tGoal.setText("");
-		Intent goToMain = new Intent(this,MainActivity.class);
+		Intent goToMain = new Intent(this, MainActivity.class);
 		startActivity(goToMain);
-			
-		
-		
+
 	}
 
 	public static class DatePickerFragment extends DialogFragment implements

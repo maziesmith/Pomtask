@@ -3,18 +3,27 @@ package com.loki.pomtask;
 public class Task {
 	private String taskName;
 	private String list;
-	private int order;
 	private String prior;
 	private String duedate;
 	private String reminder;
 	private String repeat;
 	private int goal;
 	
-	public Task(String taskName,String prior,String list,int order,String duedate,String reminder,String repeat,int goal){
+	public Task(){
+		super();
+		this.taskName="";
+		this.prior="";
+		this.list="";
+		this.duedate="";
+		this.reminder="";
+		this.repeat="";
+		this.goal=0;
+
+	}
+	public Task(String taskName,String prior,String list,String duedate,String reminder,String repeat,int goal){
 		this.taskName=taskName;
 		this.prior=prior;
 		this.list=list;
-		this.order=order;
 		this.duedate=duedate;
 		this.reminder=reminder;
 		this.repeat=repeat;
@@ -35,16 +44,10 @@ public class Task {
 	}
 
 	public void setList(String list) {
-		this.list = new String(list);
+		this.list = list;
 	}
 
-	public int getOrder() {
-		return order;
-	}
-
-	public void setOrder(int order) {
-		this.order = order;
-	}
+	
 
 	public String getPrior() {
 		return prior;

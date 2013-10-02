@@ -12,7 +12,6 @@
 	<string name="prior_two">2</string>
 	<string name="prior_three">3</string>
 	<string name="prior_none">None</string>
-	<string name="label_order">Order</string>
 	<string name="label_duedate">Due Date</string>
 	<string name="label_reminder">Reminder</string>
 	<string name="label_repeat">Repeat</string>
