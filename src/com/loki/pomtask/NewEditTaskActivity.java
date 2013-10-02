@@ -49,7 +49,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		task = new Task();
 		openDB();
 		addChangeList();
-		addTaskNameListener();
+		//addTaskNameListener();
 		addDuedate();
 		addReminder();
 		addChangeRepeat();
@@ -163,8 +163,9 @@ public class NewEditTaskActivity extends FragmentActivity {
 	}
 
 	public void onClick_AddTask(View v) {
-		select_list = (Spinner) findViewById(R.id.select_list);
-		task.setList(String.valueOf(select_list.getSelectedItem()));
+		taskName=(EditText)findViewById(R.id.taskname);
+		task.setTaskName(taskName.getText().toString());
+		Toast.makeText(getApplicationContext(), task.getTaskName()+" "+task.getList(), Toast.LENGTH_LONG).show();
 		Intent mainact = new Intent(this, MainActivity.class);
 		startActivity(mainact);
 	}
