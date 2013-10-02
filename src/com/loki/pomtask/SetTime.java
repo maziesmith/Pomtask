@@ -3,24 +3,24 @@ package com.loki.pomtask;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.pomtask.R;
-import com.loki.pomtask.TimerActivity.MyCountDownTimer;
-
-import android.os.CountDownTimer;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
+
+import com.example.pomtask.R;
 
 public class SetTime extends Activity implements OnClickListener {
 	
@@ -76,7 +76,7 @@ public class SetTime extends Activity implements OnClickListener {
 	public TextView text;
 	long startTime = 10*1000;
 	private final long interval = 1 * 1000;
-	private Time time = new Time();
+	Time time = new Time();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class SetTime extends Activity implements OnClickListener {
 		select_time.setOnItemSelectedListener(new OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
-					if(pos==0){  time.setStartTime(10*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
+					if(pos==0){  time.setStartTime(10*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
 					if(pos==1){ time.setStartTime(15*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
 					if(pos==2){ time.setStartTime(20*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
 					if(pos==3){ time.setStartTime(25*60*1000); countDownTimer = new MyCountDownTimer(time.getStartTime(), interval);}
@@ -152,12 +152,25 @@ public class SetTime extends Activity implements OnClickListener {
 
 		@Override
 		public void onFinish() {
-			text.setText("Time's up!");
+			//text.setText("Time's up!");
+			//playSound();
+			int count = time.getCount();
+			count = count+1;
+			time.setCount(count);
+			text.setText("count = "+ time.getCount());
+			
 		}
 
 		@Override
 		public void onTick(long millisUntilFinished) {
-			text.setText("seconds remaining: " + millisUntilFinished / 1000);
+			text.setText("" + millisUntilFinished / 1000);
 		}
+		/*
+		public void playSound() {
+
+			MediaPlayer mp = MediaPlayer.create(getBaseContext(), sound); //replace 'sound' by your    music/sound
+			mp.start();
+
+			}*/
 	}
 }
