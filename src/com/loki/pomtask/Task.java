@@ -1,11 +1,13 @@
 package com.loki.pomtask;
 
+import java.util.Date;
+
 public class Task {
 	private String taskName;
 	private String list;
 	private String prior;
-	private String duedate;
-	private String reminder;
+	private Date duedate;
+	private Date reminder;
 	private String repeat;
 	private int goal;
 	
@@ -14,13 +16,13 @@ public class Task {
 		this.taskName="";
 		this.prior="";
 		this.list="";
-		this.duedate="";
-		this.reminder="";
+		this.duedate=new Date();
+		this.reminder=new Date();
 		this.repeat="";
 		this.goal=0;
 
 	}
-	public Task(String taskName,String prior,String list,String duedate,String reminder,String repeat,int goal){
+	public Task(String taskName,String prior,String list,Date duedate,Date reminder,String repeat,int goal){
 		this.taskName=taskName;
 		this.prior=prior;
 		this.list=list;
@@ -57,19 +59,19 @@ public class Task {
 		this.prior = prior;
 	}
 
-	public String getDuedate() {
+	public Date getDuedate() {
 		return duedate;
 	}
 
-	public void setDuedate(String duedate) {
+	public void setDuedate(Date duedate) {
 		this.duedate = duedate;
 	}
 
-	public String getReminder() {
+	public Date getReminder() {
 		return reminder;
 	}
 
-	public void setReminder(String reminder) {
+	public void setReminder(Date reminder) {
 		this.reminder = reminder;
 	}
 
