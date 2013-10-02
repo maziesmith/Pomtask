@@ -53,7 +53,6 @@ public class NewEditTaskActivity extends FragmentActivity {
 		task = new Task();
 		openDB();
 		addChangeList();
-		// addTaskNameListener();
 		addDuedate();
 		addReminder();
 		addChangeRepeat();
@@ -87,28 +86,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		});
 	}
 
-	public void addTaskNameListener() {
-		taskName = (EditText) findViewById(R.id.taskname);
-		taskName.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId,
-					KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEARCH
-						|| actionId == EditorInfo.IME_ACTION_DONE
-						|| event.getAction() == KeyEvent.ACTION_DOWN
-						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-					if (!event.isShiftPressed()) {
-						// the user is done typing.
-						task.setTaskName(taskName.getText().toString());
-						return true; // consume.
-					}
-				}
-				return false; // pass on to other listeners.
-			}
-		});
-
-	}
-
+	
 	public void openDB() {
 		myDB = new DBAdapter(this);
 		myDB.open();
@@ -148,12 +126,12 @@ public class NewEditTaskActivity extends FragmentActivity {
 
 			}
 		});
-
+		
 	}
 
 	public void addChangeRepeat() {
 		select_repeat = (Spinner) findViewById(R.id.repeat);
-		List<String> list = new ArrayList<String>();
+		final List<String> list = new ArrayList<String>();
 		list.add("None");
 		list.add("Every day");
 		list.add("Every Week");
@@ -164,6 +142,18 @@ public class NewEditTaskActivity extends FragmentActivity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_repeat.setAdapter(dataAdapter);
+		select_repeat.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				task.setRepeat(String.valueOf(list.get(pos)));
+
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+		
 	}
 
 	public void onClick_AddTask(View v) throws ParseException {
@@ -175,7 +165,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		task.setPrior(prior.getText().toString());
 		task.setDuedate(parseDate(duedate));
 		task.setReminder(parseDate(reminder));
-		
+		task.setGoal(Integer.parseInt((((EditText)findViewById(R.id.goal)).getText().toString())));
 		Toast.makeText(getApplicationContext(), task.getDuedate().toString(),
 				Toast.LENGTH_LONG).show();
 
