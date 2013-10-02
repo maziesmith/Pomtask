@@ -229,7 +229,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int label_poms=0x7f05000f;
         public static final int label_reminder=0x7f05000c;
         public static final int label_repeat=0x7f05000d;
-        public static final int label_time=0x7f05001a;
+        public static final int label_time=0x7f05001b;
         public static final int month=0x7f050018;
         public static final int most=0x7f050019;
         public static final int ok_but=0x7f050011;
@@ -241,6 +241,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int taskname_hint=0x7f050004;
         public static final int today=0x7f050016;
         public static final int week=0x7f050017;
+        public static final int zero=0x7f05001a;
     }
     public static final class style {
         /** 

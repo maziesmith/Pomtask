@@ -1,8 +1,11 @@
 package com.loki.pomtask;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -14,7 +17,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,6 +25,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +37,7 @@ import com.example.pomtask.R;
 @SuppressLint("ValidFragment")
 public class NewEditTaskActivity extends FragmentActivity {
 	private EditText taskName;
+	private RadioGroup priorG;
 	private Spinner select_list;
 	private Spinner select_repeat;
 	private EditText duedate;
@@ -49,7 +53,6 @@ public class NewEditTaskActivity extends FragmentActivity {
 		task = new Task();
 		openDB();
 		addChangeList();
-		//addTaskNameListener();
 		addDuedate();
 		addReminder();
 		addChangeRepeat();
@@ -83,28 +86,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		});
 	}
 
-	public void addTaskNameListener() {
-		taskName = (EditText) findViewById(R.id.taskname);
-		taskName.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView v, int actionId,
-					KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_SEARCH
-						|| actionId == EditorInfo.IME_ACTION_DONE
-						|| event.getAction() == KeyEvent.ACTION_DOWN
-						&& event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-					if (!event.isShiftPressed()) {
-						// the user is done typing.
-						task.setTaskName(taskName.getText().toString());
-						return true; // consume.
-					}
-				}
-				return false; // pass on to other listeners.
-			}
-		});
-
-	}
-
+	
 	public void openDB() {
 		myDB = new DBAdapter(this);
 		myDB.open();
@@ -144,12 +126,12 @@ public class NewEditTaskActivity extends FragmentActivity {
 
 			}
 		});
-
+		
 	}
 
 	public void addChangeRepeat() {
 		select_repeat = (Spinner) findViewById(R.id.repeat);
-		List<String> list = new ArrayList<String>();
+		final List<String> list = new ArrayList<String>();
 		list.add("None");
 		list.add("Every day");
 		list.add("Every Week");
@@ -160,14 +142,41 @@ public class NewEditTaskActivity extends FragmentActivity {
 		dataAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		select_repeat.setAdapter(dataAdapter);
+		select_repeat.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int pos, long id) {
+				task.setRepeat(String.valueOf(list.get(pos)));
+
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+		
 	}
 
-	public void onClick_AddTask(View v) {
-		taskName=(EditText)findViewById(R.id.taskname);
+	public void onClick_AddTask(View v) throws ParseException {
+		priorG = (RadioGroup) findViewById(R.id.priority);
+		int selectedPid = priorG.getCheckedRadioButtonId();
+		RadioButton prior = (RadioButton) findViewById(selectedPid);
+		taskName = (EditText) findViewById(R.id.taskname);
 		task.setTaskName(taskName.getText().toString());
-		Toast.makeText(getApplicationContext(), task.getTaskName()+" "+task.getList(), Toast.LENGTH_LONG).show();
+		task.setPrior(prior.getText().toString());
+		task.setDuedate(parseDate(duedate));
+		task.setReminder(parseDate(reminder));
+		task.setGoal(Integer.parseInt((((EditText)findViewById(R.id.goal)).getText().toString())));
+		Toast.makeText(getApplicationContext(), task.getDuedate().toString(),
+				Toast.LENGTH_LONG).show();
+
 		Intent mainact = new Intent(this, MainActivity.class);
 		startActivity(mainact);
+	}
+
+	private Date parseDate(EditText w) throws ParseException {
+		SimpleDateFormat df=new SimpleDateFormat("d/MMM/yyyy-HH:mm");
+		Date result=df.parse(w.getText().toString());
+		return result;
 	}
 
 	public void onClick_ClearTask(View v) {
@@ -194,14 +203,15 @@ public class NewEditTaskActivity extends FragmentActivity {
 
 	public static class DatePickerFragment extends DialogFragment implements
 			DatePickerDialog.OnDateSetListener {
-		@Override
+		
+				@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			// use current date as the default date in the picker
 			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);
 			int month = c.get(Calendar.MONTH);
 			int day = c.get(Calendar.DAY_OF_MONTH);
-
+			
 			// create a new instance of DatePickerDialog and return it
 			return new DatePickerDialog(getActivity(), this, year, month, day);
 
@@ -213,7 +223,8 @@ public class NewEditTaskActivity extends FragmentActivity {
 			DateFormatSymbols dfs = new DateFormatSymbols();
 			String[] months = dfs.getShortMonths();
 			date = day + "/" + months[month] + "/" + year;
-
+			
+			
 		}
 	}
 
@@ -221,7 +232,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 	public static class TimerPickerFragment extends DialogFragment implements
 			TimePickerDialog.OnTimeSetListener {
 		private EditText w;
-
+		
 		public TimerPickerFragment(EditText w) {
 			super();
 			this.w = w;
@@ -242,6 +253,7 @@ public class NewEditTaskActivity extends FragmentActivity {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// Do something with the time chosen by the user
 			w.setText(date + "-" + hourOfDay + ":" + minute);
+			
 		}
 	}
 

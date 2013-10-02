@@ -3,6 +3,10 @@
 // TODO: Change the package to match your project.
 package com.loki.pomtask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -32,7 +36,7 @@ public class DBAdapter {
 	public static final String KEY_PRIOR = "tprior";
 	public static final String KEY_LIST = "tlist";
 	public static final String KEY_ORDER = "torder";
-	public static final String KEY_DUEDATE = "tduedate";
+	public static final String KEY_DUEDATE = "getDateTime(tduedate)";
 	public static final String KEY_REMINDER = "treminder";
 	public static final String KEY_REPEAT = "trepeat";
 	public static final String KEY_GOAL = "tgoal";
@@ -77,8 +81,8 @@ public class DBAdapter {
 			// have NO comma!!
 			+ KEY_TASKNAME + " text not null, " + KEY_PRIOR
 			+ " text not null, " + KEY_LIST + " text not null," + KEY_ORDER
-			+ " text not null, " + KEY_DUEDATE + "text not null,"
-			+ KEY_REMINDER + "text not null," + KEY_REPEAT + "text not null,"
+			+ " text not null, " + KEY_DUEDATE + "datetime ,"
+			+ KEY_REMINDER + "datetime ," + KEY_REPEAT + "text not null,"
 			+ KEY_GOAL + "integer not null"
 
 			// Rest of creation:
@@ -112,7 +116,7 @@ public class DBAdapter {
 
 	// Add a new set of values to the database.
 	public long insertRow(String taskName, String tPrior, String tList,
-			String tOrder, String tDuedate, String tReminder, String tRepeat,
+			String tOrder, String tduedate, String tReminder, String tRepeat,
 			int tGoal) {
 		/*
 		 * CHANGE 3:
@@ -125,7 +129,7 @@ public class DBAdapter {
 		initialValues.put(KEY_PRIOR, tPrior);
 		initialValues.put(KEY_LIST, tList);
 		initialValues.put(KEY_ORDER, tOrder);
-		initialValues.put(KEY_DUEDATE, tDuedate);
+		initialValues.put(KEY_DUEDATE, getDateTime(tduedate));
 		initialValues.put(KEY_REMINDER, tReminder);
 		initialValues.put(KEY_REPEAT, tRepeat);
 		initialValues.put(KEY_GOAL, tGoal);
@@ -176,7 +180,7 @@ public class DBAdapter {
 
 	// Change an existing row to be equal to new data.
 	public boolean updateRow(long rowId, String taskName, String tPrior, String tList,
-			int tOrder, String tDuedate, String tReminder, String tRepeat,
+			int tOrder, String tduedate, String tReminder, String tRepeat,
 			int tGoal) {
 		String where = KEY_ROWID + "=" + rowId;
 
@@ -191,14 +195,19 @@ public class DBAdapter {
 		newValues.put(KEY_PRIOR, tPrior);
 		newValues.put(KEY_LIST, tList);
 		newValues.put(KEY_ORDER, tOrder);
-		newValues.put(KEY_DUEDATE, tDuedate);
+		newValues.put(KEY_DUEDATE, getDateTime(tduedate));
 		newValues.put(KEY_REMINDER, tReminder);
 		newValues.put(KEY_REPEAT, tRepeat);
 		newValues.put(KEY_GOAL, tGoal);
 		// Insert it into the database.
 		return db.update(DATABASE_TABLE, newValues, where, null) != 0;
 	}
-
+	private String getDateTime(String d) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
 	// ///////////////////////////////////////////////////////////////////
 	// Private Helper Classes:
 	// ///////////////////////////////////////////////////////////////////
