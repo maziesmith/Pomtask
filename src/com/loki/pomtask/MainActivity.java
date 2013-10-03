@@ -4,6 +4,7 @@ package com.loki.pomtask;
 import com.example.pomtask.R;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
@@ -46,6 +47,29 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     }
 
+    public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+
+		@Override
+		public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+			// TODO Auto-generated method stub
+			//
+		}
+
+		@Override
+		public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+    	
+    }
+    
+    
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

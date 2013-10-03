@@ -173,7 +173,8 @@ public class NewEditTaskActivity extends FragmentActivity {
 				Toast.LENGTH_LONG).show();
 		
 		myDB.insertRow(task.getTaskName(), task.getPrior(), task.getList(), task.getDuedate().toString(), task.getReminder().toString(), task.getRepeat(), task.getGoal());
-		Intent mainact = new Intent(this, MainActivity.class);
+		Intent mainact = new Intent(this, TaskList.class);
+		
 		startActivity(mainact);
 	}
 

@@ -33,7 +33,8 @@
         </activity>
         <activity android:name="com.loki.pomtask.Search" >
         </activity>
-
+        <activity android:name="com.loki.pomtask.TaskList" >
+        </activity>
         <!-- setting -->
         <activity android:name="com.loki.pomtask.Stat" >
         </activity>

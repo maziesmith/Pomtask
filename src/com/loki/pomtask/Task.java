@@ -90,6 +90,9 @@ public class Task {
 	public void setGoal(int goal) {
 		this.goal = goal;
 	}
-	
+	@Override
+	  public String toString() {
+	    return taskName+" "+duedate.toString();
+	  }
 	
 }
