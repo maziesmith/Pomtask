@@ -217,7 +217,7 @@ public class DBAdapter {
 			
 		}
 		String result=dateFormat.format(date);
-		Log.d("format date",result);
+		//Log.d("format date","Before "+d+" After "+result);
         return result;
     }
 	// ///////////////////////////////////////////////////////////////////
