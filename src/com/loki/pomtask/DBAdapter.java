@@ -3,6 +3,7 @@
 // TODO: Change the package to match your project.
 package com.loki.pomtask;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,6 +14,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 // TO USE:
 // Change the package (at top) to match your project.
@@ -35,8 +37,7 @@ public class DBAdapter {
 	public static final String KEY_TASKNAME = "taskname";
 	public static final String KEY_PRIOR = "tprior";
 	public static final String KEY_LIST = "tlist";
-	public static final String KEY_ORDER = "torder";
-	public static final String KEY_DUEDATE = "getDateTime(tduedate)";
+	public static final String KEY_DUEDATE = "tduedate";
 	public static final String KEY_REMINDER = "treminder";
 	public static final String KEY_REPEAT = "trepeat";
 	public static final String KEY_GOAL = "tgoal";
@@ -58,7 +59,7 @@ public class DBAdapter {
 	public static final String DATABASE_NAME = "MyDb";
 	public static final String DATABASE_TABLE = "mainTable";
 	// Track DB version if a new version of your app changes the format.
-	public static final int DATABASE_VERSION = 2;
+	public static final int DATABASE_VERSION = 3;
 
 	private static final String DATABASE_CREATE_SQL = "create table "
 			+ DATABASE_TABLE
@@ -79,9 +80,9 @@ public class DBAdapter {
 			// NOTE: All must be comma separated (end of line!) Last one must
 			// have NO comma!!
 			+ KEY_TASKNAME + " text not null, " + KEY_PRIOR
-			+ " text not null, " + KEY_LIST + " text not null," + KEY_DUEDATE + "datetime ,"
-			+ KEY_REMINDER + "datetime ," + KEY_REPEAT + "text not null,"
-			+ KEY_GOAL + "integer not null"
+			+ " text not null, " + KEY_LIST + " text not null," + KEY_DUEDATE + " text not null,"
+			+ KEY_REMINDER + " text not null," + KEY_REPEAT + " text not null,"
+			+ KEY_GOAL + " integer not null"
 
 			// Rest of creation:
 			+ ");";
@@ -122,16 +123,18 @@ public class DBAdapter {
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		// Create row's data:
+		String duedate= getDateTime(tduedate);
+		String reminder=getDateTime(tReminder);
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_TASKNAME, taskName);
 		initialValues.put(KEY_PRIOR, tPrior);
 		initialValues.put(KEY_LIST, tList);
-		initialValues.put(KEY_DUEDATE, getDateTime(tduedate));
-		initialValues.put(KEY_REMINDER, tReminder);
+		initialValues.put(KEY_DUEDATE,duedate);
+		initialValues.put(KEY_REMINDER, reminder);
 		initialValues.put(KEY_REPEAT, tRepeat);
 		initialValues.put(KEY_GOAL, tGoal);
 		
-
+		Log.d("Create","Add "+taskName+" "+ tPrior+" "+tList+" "+duedate+" "+reminder+" "+tRepeat+" "+tGoal);
 		// Insert it into the database.
 		return db.insert(DATABASE_TABLE, null, initialValues);
 	}
@@ -187,22 +190,35 @@ public class DBAdapter {
 		// TODO: Update data in the row with new fields.
 		// TODO: Also change the function's arguments to be what you need!
 		// Create row's data:
+		String duedate=getDateTime(tduedate);
+		String reminder=getDateTime(tReminder);
 		ContentValues newValues = new ContentValues();
 		newValues.put(KEY_TASKNAME, taskName);
 		newValues.put(KEY_PRIOR, tPrior);
 		newValues.put(KEY_LIST, tList);
-		newValues.put(KEY_DUEDATE, getDateTime(tduedate));
-		newValues.put(KEY_REMINDER, tReminder);
+		newValues.put(KEY_DUEDATE,duedate );
+		newValues.put(KEY_REMINDER, reminder);
 		newValues.put(KEY_REPEAT, tRepeat);
 		newValues.put(KEY_GOAL, tGoal);
 		// Insert it into the database.
 		return db.update(DATABASE_TABLE, newValues, where, null) != 0;
 	}
-	private String getDateTime(String d) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
+	private String getDateTime(String d)  {
+        SimpleDateFormat inputDate=new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy",Locale.getDefault());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Date date = new Date();
-        return dateFormat.format(date);
+		Date date=null;
+		try {
+			date = inputDate.parse(d);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		String result=dateFormat.format(date);
+		Log.d("format date",result);
+        return result;
     }
 	// ///////////////////////////////////////////////////////////////////
 	// Private Helper Classes:

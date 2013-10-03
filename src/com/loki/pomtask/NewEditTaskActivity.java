@@ -17,9 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -45,6 +43,8 @@ public class NewEditTaskActivity extends FragmentActivity {
 	private static String date;
 	private DBAdapter myDB;
 	private Task task;
+	private Calendar due;
+	private Calendar remin;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,16 +56,18 @@ public class NewEditTaskActivity extends FragmentActivity {
 		addDuedate();
 		addReminder();
 		addChangeRepeat();
+		//Date date = new Date(datePicker.getYear() - 1900, datePicker.getMonth(), datePicker.getDayOfMonth());
 	}
 
 	public void addReminder() {
 		reminder = (EditText) findViewById(R.id.reminderp);
+		remin=Calendar.getInstance();
 		reminder.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				showTimePickerDialog(v, reminder);
+				showTimePickerDialog(v, reminder,remin);
 				showDatePickerDialog(v);
 
 			}
@@ -76,12 +78,13 @@ public class NewEditTaskActivity extends FragmentActivity {
 	public void addDuedate() {
 
 		duedate = (EditText) findViewById(R.id.duedatep);
+		due=Calendar.getInstance();
 		duedate.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				showTimePickerDialog(v, duedate);
+				showTimePickerDialog(v, duedate,due);
 				showDatePickerDialog(v);
-
+				
 			}
 		});
 	}
@@ -163,12 +166,13 @@ public class NewEditTaskActivity extends FragmentActivity {
 		taskName = (EditText) findViewById(R.id.taskname);
 		task.setTaskName(taskName.getText().toString());
 		task.setPrior(prior.getText().toString());
-		task.setDuedate(parseDate(duedate));
-		task.setReminder(parseDate(reminder));
+		task.setDuedate(due.getTime());
+		task.setReminder(remin.getTime());
 		task.setGoal(Integer.parseInt((((EditText)findViewById(R.id.goal)).getText().toString())));
-		Toast.makeText(getApplicationContext(), task.getDuedate().toString(),
+		Toast.makeText(getApplicationContext(),task.getDuedate().toString(),
 				Toast.LENGTH_LONG).show();
-
+		
+		myDB.insertRow(task.getTaskName(), task.getPrior(), task.getList(), task.getDuedate().toString(), task.getReminder().toString(), task.getRepeat(), task.getGoal());
 		Intent mainact = new Intent(this, MainActivity.class);
 		startActivity(mainact);
 	}
@@ -184,7 +188,6 @@ public class NewEditTaskActivity extends FragmentActivity {
 		RadioGroup prior = (RadioGroup) findViewById(R.id.priority);
 		Spinner tList = select_list;
 		Spinner tRepeat = select_repeat;
-		// tOrder
 		EditText tDuedate = duedate;
 		EditText tReminder = reminder;
 		EditText tGoal = (EditText) findViewById(R.id.goal);
@@ -232,10 +235,12 @@ public class NewEditTaskActivity extends FragmentActivity {
 	public static class TimerPickerFragment extends DialogFragment implements
 			TimePickerDialog.OnTimeSetListener {
 		private EditText w;
+		private Calendar d;
 		
-		public TimerPickerFragment(EditText w) {
+		public TimerPickerFragment(EditText w,Calendar d) {
 			super();
 			this.w = w;
+			this.d=d;
 		}
 
 		@Override
@@ -253,12 +258,35 @@ public class NewEditTaskActivity extends FragmentActivity {
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			// Do something with the time chosen by the user
 			w.setText(date + "-" + hourOfDay + ":" + minute);
+			int pday=date.indexOf("/");
+			int pmonth=date.indexOf("/", pday+1);
+			int day=Integer.parseInt(date.substring(0, pday));
+			int month=StrToNum(date.substring(pday+1,pmonth));
+			int year=Integer.parseInt(date.substring(pmonth+1, date.length()));
+			d.set(year, month, day, hourOfDay, minute, 00);
+		}
+		public int StrToNum(String d){
+			int result=0;
+			if(d.equals("Jan"))result=0;
+			else if(d.equals("Feb"))result=1;
+			else if(d.equals("Mar"))result=2;
+			else if(d.equals("Apr"))result=3;
+			else if(d.equals("May"))result=4;
+			else if(d.equals("Jun"))result=5;
+			else if(d.equals("Jul"))result=6;
+			else if(d.equals("Aug"))result=7;
+			else if(d.equals("Sep"))result=8;
+			else if(d.equals("Oct"))result=9;
+			else if(d.equals("Nov"))result=10;
+			else result=11;
 			
+			
+			return result;
 		}
 	}
 
-	public void showTimePickerDialog(View v, EditText w) {
-		DialogFragment newFragment = new TimerPickerFragment(w);
+	public void showTimePickerDialog(View v, EditText w,Calendar d) {
+		DialogFragment newFragment = new TimerPickerFragment(w,d);
 		newFragment.show(getSupportFragmentManager(), "timePicker");
 
 	}
